@@ -1,0 +1,67 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+        <div class="card registration-main blog-bg">
+            <div class="card-header text-center">
+                <div class="registration-title">Account beállítás</div>
+                <div class="registration-subtitle">{{ current_user.username }}</div>
+                <img class="rounded-circle registration-image" src="{{ url_for('static', filename='profil_pics/' + current_user.image) }}" alt="Profilkép">
+                
+            </div>
+            <div class="card-body">
+                <form action="" method="POST" enctype=multipart/form-data>
+                    {{ form.hidden_tag() }}
+
+                    <div class="form-group">
+                        {{ form.username.label(class="form-control-label") }}
+                        {% if form.username.errors %}
+                        {{ form.username(class="form-control is-invalid form-bg") }}
+                            {% for err_msg in form.username.errors %}
+                            <div class="invalid-feedback">{{ err_msg }}</div>
+                            {% endfor %}
+                        {% else %}
+                            {{ form.username(class="form-control form-bg") }}
+                        {% endif %}
+                    </div>
+
+                    <br>
+
+                    <div class="form-group">
+                        {{ form.email.label(class="form-control-label") }}
+                        {% if form.email.errors %}
+                        {{ form.email(class="form-control is-invalid form-bg") }}
+                            {% for err_msg in form.email.errors %}
+                            <div class="invalid-feedback">{{ err_msg }}</div>
+                            {% endfor %}
+                        {% else %}
+                            {{ form.email(class="form-control form-bg") }}
+                        {% endif %}
+                    </div>
+
+                    <br>
+
+                    <div class="form-group">
+                        {{ form.image.label(class="form-control-label") }}
+                        <br>
+                        {{ form.image }}
+                    </div>
+                    
+                    <br>
+
+                    <div class="form-group">
+                        {{ form.default_image() }}
+                        {{ form.default_image.label()}}
+                    </div>
+                    
+                    <br>
+                    
+                    <div class="form-grup text-center">
+                        {{ form.submit(class="btn btn-outline-success") }}
+                    </div>
+
+                </form>
+
+            </div>            
+
+        </div>
+{% endblock %}

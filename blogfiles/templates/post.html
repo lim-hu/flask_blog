@@ -1,0 +1,70 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="card post-main blog-bg">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-4">
+                <a class="post-title">{{ post.title }}</a>
+            </div>
+            <div class="col-8 post-end">
+                {% if (current_user.username == post.author.username) or current_user.rank == 9 %}
+                    <div class="row">
+                        <div class="col-6">
+                            <form action="{{ url_for('update_post', post_id=post.id) }}">
+                                <input class="btn btn-secondary btn-sm" type="submit" value="Szerkesztés" name="update-post">
+                            </form>
+                        </div>
+                        <div class="col-6">
+                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deletePost">
+                                Törlés
+                            </button>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        
+    </div>
+    <div class="card-body">
+        <p class="card-text post-text">{{ post.content }}</p>
+    </div>            
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-6 post-start">
+                <img class="post-avatar rounded-circle" src="{{ url_for('static', filename='profil_pics/' + post.user.image) }}">
+                <a class="post-user">{{ post.author.username }}</a>
+            </div>
+            <div class="col-6 post-end">
+                <div class="post-date">{{ post.post_date.strftime('%Y-%m-%d %H:%M') }}</div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deletePost" tabindex="-1" role="dialog" aria-labelledby="deletePostLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content blog-bg">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Biztosan törlöd ezt a postot?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          A poszt véglegesen törölve lesz.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Bezár</button>
+             <form action="{{ url_for('delete_post', post_id=post.id) }}" method="POST">
+                 <input type="submit" class="btn btn-danger" value="Törlés" id="delete-post" name="delete-post">
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

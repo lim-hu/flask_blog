@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+
+    
+    <div class="card new-post-main blog-bg">
+        <div class="card-header">
+            <div class="registration-title"> {{ title }}</div>
+        </div>
+        <div class="card-body" style="padding: 1rem 3rem;">
+            {% for learn in learns %}
+                <div class="card-text" style="padding: 0.5rem 0">
+                    <a class="btn btn-danger btn-xs" style="margin: 0.5rem" href="{{ url_for('delete_learn', learn_id=learn.id) }}">-</a>
+                    {{ learn.desc }}
+                </div>
+            {% endfor %}
+            <form method="POST">
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                    {{ form.add(class="btn btn-success btn-xs", style="margin: 0.5rem")}}
+                    {{ form.desc(class="form-bg") }}
+                </div>
+            </form>
+
+                <br>
+                
+                <div class="form-grup text-center">
+                    
+                </div>
+        </div>
+    </div>
+
+
+           
+            
+
+{% endblock %}
