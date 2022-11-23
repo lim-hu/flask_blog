@@ -22,4 +22,5 @@ $ pip install flask-bcrypt
 ```
 
 Run the run.py from console or from code editor's terminal.
+
 run.py -vel futtasd a terminálból vagy kódszerkesztő termináljából.
